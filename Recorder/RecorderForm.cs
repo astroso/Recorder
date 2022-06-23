@@ -57,7 +57,7 @@ namespace Recorder
             var delay = (DateTime.Now - _currentTime).TotalMilliseconds;
             var roundedDelay = (int)Math.Round(delay);
 
-            if (_gameListener.IsGameForeground &&
+            if ((_gameListener.IsMinecraftForeground || _gameListener.IsAzLauncherForeground) &&
                 !_gameListener.IsCursorVisible &&
                 roundedDelay < 150)
             {

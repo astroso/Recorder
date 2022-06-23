@@ -24,19 +24,21 @@ namespace Recorder
 
             ConsoleHelpers.PrintLine("info", "waiting minecraft instance.", Purple);
 
-            while (_gameListener.IsGameForeground && Process.GetProcessesByName("javaw")[0] != null)
+            while (true)
             {
-                Thread.Sleep(5);
-
-                Console.Clear();
-                ConsoleHelpers.PrintLine("listener",
-                    $@"instance found: {Process.GetProcessesByName("javaw")[0].MainWindowTitle}", Purple);
-                ConsoleHelpers.PrintLine("info", "try clicking (on instance), recording process will start soon.",
-                    Purple);
-
-                break;
+                Thread.Sleep(25);
+                if ((_gameListener.IsMinecraftForeground || _gameListener.IsAzLauncherForeground) &&
+                    Process.GetProcessesByName("javaw")[0] != null)
+                {
+                    Console.Clear();
+                    ConsoleHelpers.PrintLine("listener",
+                        $@"instance found: {Process.GetProcessesByName("javaw")[0].MainWindowTitle}", Purple);
+                    ConsoleHelpers.PrintLine("info", "try clicking (on instance), recording process will start soon.",
+                        Purple);
+                    break;
+                } 
             }
-
+            
             Thread.Sleep(2000);
 
             Console.Clear();
